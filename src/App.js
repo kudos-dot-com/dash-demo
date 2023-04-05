@@ -1,13 +1,11 @@
 import './App.css';
 import { Fragment } from 'react';
-import Sidebar from './Components/Sidebar/Sidebar.js';
-import Navbar from './Components/Navbar/Navbar';
+import Home from './Components/Home/Home';
 
 function App() {
   return (
     <Fragment>
-    {/* <Navbar/> */}
-    <Sidebar/>
+      <Home/>
     </Fragment>
   );
 }
