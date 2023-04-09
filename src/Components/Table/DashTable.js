@@ -3,30 +3,78 @@ import api from "../API";
 
 let topics = []
 
-// fetch(`${api.get.topic}${sub}`)
-// .then((response) => {
-//   return response.json();
-// })
-// .then((data) => {
-//   topics = data.result;
-// })
+// fetch(`${api.get.topic}biology`)
+//   .then((response) => {
+//     return response.json();
+//   })
+//   .then((data) => {
+//     topics = data.result;
+//     console.log(topics.length);
+//   })
 
-const content = [
-  { slno: "1", sub: "Physics", chap: "10", ques: "5" },
-  { slno: "2", sub: "Chemistry", chap: "10", ques: "5" },
-  { slno: "3", sub: "Mathematics", chap: "10", ques: "5" },
-  { slno: "4", sub: "Biology", chap: "10", ques: "5" },
-];
-
+// let a = 10;
 export default function DashTable() {
 
+  const [nophy, setNoPhy] = useState(0);
+  const [nochem, setNoChem] = useState(0);
+  const [nomath, setNoMath] = useState(0);
+  const [nobio, setNoBio] = useState(0);
+
+  fetch(`${api.get.topic}physics`)
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    topics = data.result;
+    console.log(topics.length);
+    setNoPhy(topics.length)
+  })
+
+  fetch(`${api.get.topic}chemistry`)
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    topics = data.result;
+    console.log(topics.length);
+    setNoChem(topics.length)
+  })
+
+  fetch(`${api.get.topic}mathematics`)
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    topics = data.result;
+    console.log(topics.length);
+    setNoMath(topics.length)
+  })
+
+  fetch(`${api.get.topic}biology`)
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    topics = data.result;
+    console.log(topics.length);
+    setNoBio(topics.length)
+  })
+
+  const content = [
+    { slno: "1", sub: "Physics", chap: nophy,ques: "5" },
+    { slno: "2", sub: "Chemistry", chap: nochem, ques: "5" },
+    { slno: "3", sub: "Mathematics", chap: nomath, ques: "5" },
+    { slno: "4", sub: "Biology", chap: nobio, ques: "5" },
+  ];
+  
+
   return (
-    <table class="table">
+    <table className="table">
       <thead>
         <tr>
           <th scope="col">Sl. No.</th>
           <th scope="col">Subject</th>
-          <th scope="col">Chapters</th>
+          <th scope="col">Topics</th>
           <th scope="col">Questions</th>
         </tr>
       </thead>

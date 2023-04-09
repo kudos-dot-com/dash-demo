@@ -20,7 +20,7 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "addchap",
+    path: "addtopic",
     element: <AddChap/>,
   },
 
