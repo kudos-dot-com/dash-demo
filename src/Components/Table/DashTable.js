@@ -12,7 +12,6 @@ let topics = []
 //     console.log(topics.length);
 //   })
 
-// let a = 10;
 export default function DashTable() {
 
   const [nophy, setNoPhy] = useState(0);
@@ -60,6 +59,7 @@ export default function DashTable() {
     setNoBio(topics.length)
   })
 
+  
   const content = [
     { slno: "1", sub: "Physics", chap: nophy,ques: "5" },
     { slno: "2", sub: "Chemistry", chap: nochem, ques: "5" },
