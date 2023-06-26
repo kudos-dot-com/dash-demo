@@ -3,9 +3,8 @@ import "./subdetails.css";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
-const cont = [{ link: "/addtopic" , topic: "Add Topics" },
+const cont = [{ link: "/addchap" , topic: "Add Chapters" },
               { link: "/addques", topic: "Add Questions" }];
-
 
 export default function SubDetails() {
 
@@ -26,7 +25,7 @@ export default function SubDetails() {
           {cont.map((i) => (
             <div className="col-lg-5">
               <div className="card text-center h-100">
-                <Link to={i.link} style={{textDecoration: "none"}}>
+                <Link to={i.link} style={{textDecoration: "none"}} state ={{sub: `${params.state.sub}`}}>
                   <div
                     className="card-body"
                     style={{ padding: "25px", boxShadow: "2px 2px 10px black" }}>
