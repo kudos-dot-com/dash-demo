@@ -1,23 +1,13 @@
 import { useState } from "react";
 import api from "../API";
 
-let topics = []
-
-// fetch(`${api.get.topic}biology`)
-//   .then((response) => {
-//     return response.json();
-//   })
-//   .then((data) => {
-//     topics = data.result;
-//     console.log(topics.length);
-//   })
+let topics = [];
 
 export default function DashTable() {
-
-  const [nophy, setNoPhy] = useState(0);
-  const [nochem, setNoChem] = useState(0);
-  const [nomath, setNoMath] = useState(0);
-  const [nobio, setNoBio] = useState(0);
+  const [nophy, setNoPhy] = useState("Loading...");
+  const [nochem, setNoChem] = useState("Loading...");
+  const [nomath, setNoMath] = useState("Loading...");
+  const [nobio, setNoBio] = useState("Loading...");
 
   fetch(`${api.get.topic}physics`)
   .then((response) => {
@@ -25,48 +15,46 @@ export default function DashTable() {
   })
   .then((data) => {
     topics = data.result;
-    console.log(topics.length);
+    // console.log(topics.length);
     setNoPhy(topics.length)
   })
 
   fetch(`${api.get.topic}chemistry`)
-  .then((response) => {
-    return response.json();
-  })
-  .then((data) => {
-    topics = data.result;
-    console.log(topics.length);
-    setNoChem(topics.length)
-  })
+    .then((response) => {
+      return response.json();      
+    })
+    .then((data) => {
+      topics = data.result;
+      // console.log(topics.length);
+      setNoChem(topics.length);
+    });
 
   fetch(`${api.get.topic}mathematics`)
-  .then((response) => {
-    return response.json();
-  })
-  .then((data) => {
-    topics = data.result;
-    console.log(topics.length);
-    setNoMath(topics.length)
-  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      topics = data.result;
+      // console.log(topics.length);
+      setNoMath(topics.length);
+    });
 
   fetch(`${api.get.topic}biology`)
-  .then((response) => {
-    return response.json();
-  })
-  .then((data) => {
-    topics = data.result;
-    console.log(topics.length);
-    setNoBio(topics.length)
-  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      topics = data.result;
+      // console.log(topics.length);
+      setNoBio(topics.length);
+    });
 
-  
   const content = [
-    { slno: "1", sub: "Physics", chap: nophy,ques: "5" },
+    { slno: "1", sub: "Physics", chap: nophy, ques: "5" },
     { slno: "2", sub: "Chemistry", chap: nochem, ques: "5" },
     { slno: "3", sub: "Mathematics", chap: nomath, ques: "5" },
     { slno: "4", sub: "Biology", chap: nobio, ques: "5" },
   ];
-  
 
   return (
     <table className="table">

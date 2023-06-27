@@ -1,6 +1,7 @@
 import SideNavBar from "../SideNavBar/SideNavBar";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import api from "../API";
 
 export default function AddChap() {
   const params = useLocation();
@@ -17,7 +18,7 @@ export default function AddChap() {
     // console.log(userData);
 
     axios
-      .post("https://edufoundation-backend.vercel.app/api/topic/add", userData)
+      .post(`${api.get.topic}add`, userData)
       .then((response) => {
         console.log(response.status, response.data.token);
         alert("Chapter has been added Successfully");

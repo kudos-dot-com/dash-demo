@@ -1,28 +1,63 @@
 import SideNavBar from "../SideNavBar/SideNavBar";
+import { useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import api from "../API";
+
+let chapters = [];
 
 export default function AddQues() {
+  const params = useLocation();
+  const sub = params.state.sub;
+  // console.log(sub);
+
+  const [subOpt, setSubOpt] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const fetchData = () => {
+    setLoading(true);
+    fetch(`${api.get.topic}${sub}`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        chapters = data.result;
+        console.log(chapters)
+        setSubOpt(chapters);
+        setLoading(false);
+      });
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // const userData = {
+    //   name: e.target.chapter.value,
+    //   subject: sub,}
+  };
+
   return (
     <>
       <SideNavBar />
-      <form>
-
-      <div className="row" style={{ marginLeft: "13rem", width: "80%" }}>
+      <form onSubmit={handleSubmit}>
+        <div className="row" style={{ marginLeft: "13rem", width: "80%" }}>
           <div className="col-lg-6">
             <label for="inputState" style={{ paddingBottom: "10px" }}>
               Topic
             </label>
             <select id="inputState" class="form-control">
               <option selected>Choose...</option>
-              <option>Topic 1</option>
-              <option>Topic 2</option>
-              <option>Topic 3</option>
-              <option>Topic 4</option>
-              <option>Topic 5</option>
+              {subOpt.map((i) => (
+                <option>
+                  {i.name}
+                </option>
+              ))}
             </select>
             <br />
           </div>
 
-        <div className="col-lg-6">
+          <div className="col-lg-6">
             <label style={{ paddingBottom: "10px" }}>Sub-Topic</label>
             <input
               type="text"
@@ -30,15 +65,15 @@ export default function AddQues() {
               placeholder="Write the subtopic here"
               list="subtopics"
             />
-              <datalist id="subtopics">
-              <option value="SubTopic 1"/>
-              <option value="SubTopic 2"/>
-              <option value="SubTopic 3"/>
-              <option value="SubTopic 4"/>
-              <option value="SubTopic 5"/>
-              </datalist>
+            <datalist id="subtopics">
+              <option value="SubTopic 1" />
+              <option value="SubTopic 2" />
+              <option value="SubTopic 3" />
+              <option value="SubTopic 4" />
+              <option value="SubTopic 5" />
+            </datalist>
           </div>
-      </div>
+        </div>
 
         <div className="row" style={{ marginLeft: "13rem", width: "80%" }}>
           <div className="col-lg-6">
@@ -264,7 +299,6 @@ export default function AddQues() {
             Submit
           </button>
         </div>
-      
       </form>
     </>
   );
