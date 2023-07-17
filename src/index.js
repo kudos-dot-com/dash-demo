@@ -7,6 +7,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SubDetails from './Components/SubDetails/SubDetails';
 import AddChap from './Components/AddChapters/AddChap';
 import AddQues from './Components/AddQuestions/AddQues';
+import DelChap from './Components/DelChapters/DelChap';
+import DelQues from './Components/DelQuestions/DelQues';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +29,14 @@ const router = createBrowserRouter([
   {
     path: "addques",
     element: <AddQues/>,
+  },
+  {
+    path: "delchap",
+    element: <DelChap/>,
+  },
+  {
+    path: "delques",
+    element: <DelQues/>,
   },
   // {
   //   path: "instruct",

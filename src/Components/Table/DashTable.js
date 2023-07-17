@@ -1,9 +1,9 @@
 import { useState } from "react";
 import api from "../API";
 
-let topics = [];
-
 export default function DashTable() {
+  
+  let topics = [];
   const [nophy, setNoPhy] = useState("Loading...");
   const [nochem, setNoChem] = useState("Loading...");
   const [nomath, setNoMath] = useState("Loading...");
