@@ -2,7 +2,7 @@ import { useState } from "react";
 import api from "../API";
 
 export default function DashTable() {
-  
+
   let topics = [];
   const [nophy, setNoPhy] = useState("Loading...");
   const [nochem, setNoChem] = useState("Loading...");
@@ -10,18 +10,18 @@ export default function DashTable() {
   const [nobio, setNoBio] = useState("Loading...");
 
   fetch(`${api.get.topic}physics`)
-  .then((response) => {
-    return response.json();
-  })
-  .then((data) => {
-    topics = data.result;
-    // console.log(topics.length);
-    setNoPhy(topics.length)
-  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      topics = data.result;
+      // console.log(topics.length);
+      setNoPhy(topics.length)
+    })
 
   fetch(`${api.get.topic}chemistry`)
     .then((response) => {
-      return response.json();      
+      return response.json();
     })
     .then((data) => {
       topics = data.result;
@@ -57,25 +57,29 @@ export default function DashTable() {
   ];
 
   return (
-    <table className="table">
-      <thead>
-        <tr>
-          <th scope="col">Sl. No.</th>
-          <th scope="col">Subject</th>
-          <th scope="col">Topics</th>
-          <th scope="col">Questions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {content.map((i) => (
-          <tr>
-            <th scope="row">{i.slno}</th>
-            <td>{i.sub}</td>
-            <td>{i.chap}</td>
-            <td>{i.ques}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <div className="container">
+      <div className="row gy-3 my-3" style={{ marginLeft: "10rem" }}>
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">Sl. No.</th>
+              <th scope="col">Subject</th>
+              <th scope="col">Topics</th>
+              <th scope="col">Questions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {content.map((i) => (
+              <tr>
+                <th scope="row">{i.slno}</th>
+                <td>{i.sub}</td>
+                <td>{i.chap}</td>
+                <td>{i.ques}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 }
