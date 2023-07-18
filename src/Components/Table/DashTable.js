@@ -59,7 +59,7 @@ export default function DashTable() {
   return (
     <div className="container" style={{ marginLeft: "10rem" }}>
       <div className="row gy-3 my-3">
-      <div className="col-lg-1"/>
+      <div className="col-lg-2"/>
       <div className="col-lg-9">
         <table className="table">
           <thead>
