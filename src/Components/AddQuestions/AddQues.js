@@ -64,6 +64,7 @@ export default function AddQues() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(sub, DdlChapter, DdlTopic);
+    console.log("This is the Chapter Text: ", DdlChapter);
     {Question && console.log("This is the Question Text: ", Question);}
     {Option1 && console.log("This is the Option 1 Text: ", Option1);}
     {Option2 && console.log("This is the Option 2 Text: ", Option2);}
@@ -74,7 +75,7 @@ export default function AddQues() {
     {Difficultylevel && console.log("This is the Difficulty Level: ", Difficultylevel);}
     {ExamType && console.log("This is the Exam Type: ", ExamType);}
     {ExamYear && console.log("This is the Exam Year Text: ", ExamYear);}
-    console.log(OptionMsq);
+    // console.log(OptionMsq);
 
     // try{
     //   const requestOptions = {
@@ -195,8 +196,9 @@ export default function AddQues() {
                 class="form-control"
                 value={DdlChapter}
                 onChange={(e) => setDdlChapter(e.target.value)}
+                required
               >
-                <option selected>Choose...</option>
+                <option value="">Choose...</option>
                 {subOpt.map((i) => (
                   <option>{i.name}</option>
                 ))}
@@ -235,6 +237,7 @@ export default function AddQues() {
                   autoComplete="off"
                   value={Question}
                   onChange={(e) => setQuestion(e.target.value)}
+                  required = {!(Question || questionImg)}
                 />
                 <br />
               </div>
@@ -250,6 +253,7 @@ export default function AddQues() {
                     id="questionImg"
                     style={{ marginTop: "10px" }}
                     onChange={handleFileRead}
+                    required = {!(Question || questionImg)}
                   />
                 </div>
               </div>
@@ -266,6 +270,7 @@ export default function AddQues() {
                 autoComplete="off"
                 value={Hint}
                 onChange={(e) => setHint(e.target.value)}
+                required
               />
             </div>
 
@@ -278,8 +283,9 @@ export default function AddQues() {
                 class="form-control"
                 value={Difficultylevel}
                 onChange={(e) => setDifficultylevel(e.target.value)}
+                required
               >
-                <option selected>Choose...</option>
+                <option value="">Choose...</option>
                 <option>Level 1</option>
                 <option>Level 2</option>
                 <option>Level 3</option>
@@ -326,8 +332,9 @@ export default function AddQues() {
                 class="form-control"
                 value={ExamKey}
                 onChange={(e) => setExamKey(e.target.value)}
+                required
               >
-                <option selected>Choose...</option>
+                <option value="">Choose...</option>
                 <option>MCQ</option>
                 <option>MSQ</option>
                 <option>TEXT</option>

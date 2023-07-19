@@ -212,7 +212,7 @@ export default function MsqQuestions() {
 
       <div className="row" style={{ marginLeft: "13rem", width: "80%" }}>
         <div className="col-lg-6">
-          <label for="msqOptions" style={{ paddingBottom: "10px" }} required>
+          <label for="msqOptions" style={{ paddingBottom: "10px" }}>
             Correct Option
           </label>
           <select
@@ -221,6 +221,7 @@ export default function MsqQuestions() {
             class="form-control"
             onClick={selectMultiple}
             multiple
+            required
           >
             <option value={Option1}>Option1 Text</option>
             <option value={Option2}>Option2 Text</option>
