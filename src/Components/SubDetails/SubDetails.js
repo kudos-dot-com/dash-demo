@@ -3,7 +3,7 @@ import "./subdetails.css";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
-const cont = [{ link: "/addchap" , topic: "Add Chapters" },
+const cont = [{ link: "/addchap" , topic: "Add Chapters / Topics" },
               { link: "/addques", topic: "Add Questions" },
               { link: "/delchap", topic: "Delete Chapter" },
               { link: "/delques", topic: "Delete Question" }];

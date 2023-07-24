@@ -7,22 +7,20 @@ import McqQuestions from "./MCQ";
 import MsqQuestions from "./MSQ";
 import TextQuestions from "./TEXT";
 
-let chapters = [];
+let chapters = [], topics = [];
 
 const MyContext = createContext("");
 
 export default function AddQues() {
   const params = useLocation();
   const sub = params.state.sub;
-  // console.log(sub);
 
   const [subOpt, setSubOpt] = useState([]);
+  const [topicOpt, setTopicOpt] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // const [Topics, setTopics] = useState(0);
-  const [DdlTopic, setDdlTopic] = useState("");
-  const [DdlChapter, setDdlChapter] = useState("");
-  // const [DdlSubTopic, setDdlSubTopic] = useState('');
+  const [Topic, setTopic] = useState("");
+  const [Chapter, setChapter] = useState("");
   const [Question, setQuestion] = useState("");
   const [Option1, setOption1] = useState("");
   const [Option2, setOption2] = useState("");
@@ -36,7 +34,6 @@ export default function AddQues() {
   const [ExamKey, setExamKey] = useState("");
   const [OptionMsq, setOptionMsq] = useState([]);
 
-  // const [Chaterphy, setChaterphy] = useState(0);
   const [questionImg, setQuestionImg] = useState("");
   const [option1Img, setOption1Img] = useState("");
   const [option2Img, setOption2Img] = useState("");
@@ -63,54 +60,76 @@ export default function AddQues() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(sub, DdlChapter, DdlTopic);
-    console.log("This is the Chapter Text: ", DdlChapter);
-    {Question && console.log("This is the Question Text: ", Question);}
-    {Option1 && console.log("This is the Option 1 Text: ", Option1);}
-    {Option2 && console.log("This is the Option 2 Text: ", Option2);}
-    {Option3 && console.log("This is the Option 3 Text: ", Option3);}
-    {Option4 && console.log("This is the Option 4 Text: ", Option4);}
-    {CorrectOption && console.log("This is the Correct Option: ", CorrectOption);}
-    {Hint && console.log("This is the Hint Text: ", Hint);}
-    {Difficultylevel && console.log("This is the Difficulty Level: ", Difficultylevel);}
-    {ExamType && console.log("This is the Exam Type: ", ExamType);}
-    {ExamYear && console.log("This is the Exam Year Text: ", ExamYear);}
+    console.log(sub, Chapter, Topic);
+    console.log("This is the Chapter Text: ", Chapter);
+    {
+      Question && console.log("This is the Question Text: ", Question);
+    }
+    {
+      Option1 && console.log("This is the Option 1 Text: ", Option1);
+    }
+    {
+      Option2 && console.log("This is the Option 2 Text: ", Option2);
+    }
+    {
+      Option3 && console.log("This is the Option 3 Text: ", Option3);
+    }
+    {
+      Option4 && console.log("This is the Option 4 Text: ", Option4);
+    }
+    {
+      CorrectOption &&
+        console.log("This is the Correct Option: ", CorrectOption);
+    }
+    {
+      Hint && console.log("This is the Hint Text: ", Hint);
+    }
+    {
+      Difficultylevel &&
+        console.log("This is the Difficulty Level: ", Difficultylevel);
+    }
+    {
+      ExamType && console.log("This is the Exam Type: ", ExamType);
+    }
+    {
+      ExamYear && console.log("This is the Exam Year Text: ", ExamYear);
+    }
     // console.log(OptionMsq);
 
-    // try{
-    //   const requestOptions = {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify({
-    //     subject: sub,
-    //     chapter: DdlChapter,
-    //     topic: DdlTopic,
-    //     question: Question,
-    //     questionImage: questionImg,
-    //     option1: Option1,
-    //     option2: Option2,
-    //     option3: Option3,
-    //     option4: Option4,
-    //     option1Image: option1Img,
-    //     option2Image: option2Img,
-    //     option3Image: option3Img,
-    //     option4Image: option4Img,
-    //     correct_answer : CorrectOption,
-    //     difficulty : Difficultylevel,
-    //     exam : ExamType,
-    //     hints1 : Hint,
-    //     year : ExamYear}
-    //   )};
+    try {
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          subject: sub,
+          topic: Chapter,
+          chapter: Topic,
+          question: Question,
+          questionImage: questionImg,
+          option1: Option1,
+          option2: Option2,
+          option3: Option3,
+          option4: Option4,
+          option1Image: option1Img,
+          option2Image: option2Img,
+          option3Image: option3Img,
+          option4Image: option4Img,
+          correct_answer: CorrectOption,
+          difficulty: Difficultylevel,
+          exam: ExamType,
+          hints1: Hint,
+          year: ExamYear,
+          key: ExamKey,
+        }),
+      };
 
-    // const response = await fetch(`${api.post.question}/add`, requestOptions);
-    // const data = await response.json();
-    // console.log(data.message);
-    // alert(data.message);
-    // }
-
-    // catch (err) {
-    //   console.log(err);
-    // }
+      const response = await fetch(`${api.post.question}/add`, requestOptions);
+      const data = await response.json();
+      console.log(data.message);
+      alert(data.message);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleFileRead = async (event) => {
@@ -182,20 +201,31 @@ export default function AddQues() {
           option4Img,
           setOption4Img,
           OptionMsq,
-          setOptionMsq
+          setOptionMsq,
         }}
       >
         <form onSubmit={handleSubmit}>
           <div className="row" style={{ marginLeft: "13rem", width: "80%" }}>
             <div className="col-lg-6">
               <label for="inputState" style={{ paddingBottom: "10px" }}>
-                Topic
+                Chapter
               </label>
               <select
                 id="inputState"
                 class="form-control"
-                value={DdlChapter}
-                onChange={(e) => setDdlChapter(e.target.value)}
+                // value={Chapter}
+                onChange={(e) => {
+                  setChapter(e.target.value);
+                  fetch(`${api.get.chapter}chapter/${sub}`)
+                    .then((response) => {
+                      return response.json();
+                    })
+                    .then((data) => {
+                      topics = data.result;
+                      console.log(topics.length);
+                      setTopicOpt(topics);
+                    });
+                }}
                 required
               >
                 <option value="">Choose...</option>
@@ -207,22 +237,20 @@ export default function AddQues() {
             </div>
 
             <div className="col-lg-6">
-              <label style={{ paddingBottom: "10px" }}>Sub-Topic</label>
-              <input
+              <label style={{ paddingBottom: "10px" }}>Topic</label>
+              <select
                 type="text"
                 class="form-control"
                 placeholder="Write the subtopic here"
                 list="subtopics"
-                value={DdlTopic}
-                onChange={(e) => setDdlTopic(e.target.value)}
-              />
-              <datalist id="subtopics">
-                <option value="SubTopic 1" />
-                <option value="SubTopic 2" />
-                <option value="SubTopic 3" />
-                <option value="SubTopic 4" />
-                <option value="SubTopic 5" />
-              </datalist>
+                // value={Topic}
+                onChange={(e) => setTopic(e.target.value)}
+              >
+                <option value=""> Choose... </option>
+                {topicOpt.map((i) => (
+                  <option>{i.name}</option>
+                ))}
+              </select>
             </div>
           </div>
 
@@ -237,7 +265,7 @@ export default function AddQues() {
                   autoComplete="off"
                   value={Question}
                   onChange={(e) => setQuestion(e.target.value)}
-                  required = {!(Question || questionImg)}
+                  required={!(Question || questionImg)}
                 />
                 <br />
               </div>
@@ -253,7 +281,7 @@ export default function AddQues() {
                     id="questionImg"
                     style={{ marginTop: "10px" }}
                     onChange={handleFileRead}
-                    required = {!(Question || questionImg)}
+                    required={!(Question || questionImg)}
                   />
                 </div>
               </div>
