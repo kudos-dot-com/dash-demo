@@ -62,40 +62,17 @@ export default function AddQues() {
     e.preventDefault();
     console.log(sub, Chapter, Topic);
     console.log("This is the Chapter Text: ", Chapter);
-    {
-      Question && console.log("This is the Question Text: ", Question);
-    }
-    {
-      Option1 && console.log("This is the Option 1 Text: ", Option1);
-    }
-    {
-      Option2 && console.log("This is the Option 2 Text: ", Option2);
-    }
-    {
-      Option3 && console.log("This is the Option 3 Text: ", Option3);
-    }
-    {
-      Option4 && console.log("This is the Option 4 Text: ", Option4);
-    }
-    {
-      CorrectOption &&
-        console.log("This is the Correct Option: ", CorrectOption);
-    }
-    {
-      Hint && console.log("This is the Hint Text: ", Hint);
-    }
-    {
-      Difficultylevel &&
-        console.log("This is the Difficulty Level: ", Difficultylevel);
-    }
-    {
-      ExamType && console.log("This is the Exam Type: ", ExamType);
-    }
-    {
-      ExamYear && console.log("This is the Exam Year Text: ", ExamYear);
-    }
-    // console.log(OptionMsq);
-
+    {Question && console.log("This is the Question Text: ", Question);}
+    {Option1 && console.log("This is the Option 1 Text: ", Option1);}
+    {Option2 && console.log("This is the Option 2 Text: ", Option2);}
+    {Option3 && console.log("This is the Option 3 Text: ", Option3);}
+    {Option4 && console.log("This is the Option 4 Text: ", Option4);}
+    {CorrectOption &&console.log("This is the Correct Option: ", CorrectOption);}
+    {Hint && console.log("This is the Hint Text: ", Hint);}
+    {Difficultylevel &&console.log("This is the Difficulty Level: ", Difficultylevel);}
+    {ExamType && console.log("This is the Exam Type: ", ExamType);}
+    {ExamYear && console.log("This is the Exam Year Text: ", ExamYear);}
+    
     try {
       const requestOptions = {
         method: "POST",
@@ -127,6 +104,7 @@ export default function AddQues() {
       const data = await response.json();
       console.log(data.message);
       alert(data.message);
+      // e.target.reset();
     } catch (err) {
       console.log(err);
     }
@@ -265,7 +243,7 @@ export default function AddQues() {
                   autoComplete="off"
                   value={Question}
                   onChange={(e) => setQuestion(e.target.value)}
-                  required={!(Question || questionImg)}
+                  // required={!(Question || questionImg)}
                 />
                 <br />
               </div>
@@ -281,7 +259,7 @@ export default function AddQues() {
                     id="questionImg"
                     style={{ marginTop: "10px" }}
                     onChange={handleFileRead}
-                    required={!(Question || questionImg)}
+                    // required={!(Question || questionImg)}
                   />
                 </div>
               </div>
@@ -381,6 +359,7 @@ export default function AddQues() {
               type="submit"
               class="btn btn-primary"
               style={{ marginLeft: "14rem" }}
+              id="submitBtn"
             >
               Submit
             </button>

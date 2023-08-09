@@ -7,8 +7,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SubDetails from './Components/SubDetails/SubDetails';
 import AddChap from './Components/AddChapters/AddChap';
 import AddQues from './Components/AddQuestions/AddQues';
-import DelChap from './Components/DelChapters/DelChap';
 import DelQues from './Components/DelQuestions/DelQues';
+import EditQues from './Components/EditQuestions/EditQues';
 
 const router = createBrowserRouter([
   {
@@ -31,8 +31,8 @@ const router = createBrowserRouter([
     element: <AddQues/>,
   },
   {
-    path: "delchap",
-    element: <DelChap/>,
+    path: "editques",
+    element: <EditQues/>,
   },
   {
     path: "delques",

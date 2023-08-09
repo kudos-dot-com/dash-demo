@@ -61,7 +61,7 @@ export default function McqQuestions() {
               id="optiontext1"
               value={Option1}
               onChange={(e) => setOption1(e.target.value)}
-              required = {!(Option1 || option1Img)}
+              // required = {!(Option1 || option1Img)}
             />
           </div>
           <br />
@@ -77,7 +77,7 @@ export default function McqQuestions() {
                 id="option1Img"
                 style={{ marginTop: "10px" }}
                 onChange={handleFileRead}
-                required = {!(Option1 || option1Img)}
+                // required = {!(Option1 || option1Img)}
               />
             </div>
           </div>
@@ -95,7 +95,7 @@ export default function McqQuestions() {
               autoComplete="off"
               value={Option2}
               onChange={(e) => setOption2(e.target.value)}
-              required = {!(Option2 || option2Img)}
+              // required = {!(Option2 || option2Img)}
             />
           </div>
           <br />
@@ -111,7 +111,7 @@ export default function McqQuestions() {
                 id="option2Img"
                 style={{ marginTop: "10px" }}
                 onChange={handleFileRead}
-                required = {!(Option2 || option2Img)}
+                // required = {!(Option2 || option2Img)}
               />
             </div>
           </div>
@@ -129,7 +129,7 @@ export default function McqQuestions() {
               autoComplete="off"
               value={Option3}
               onChange={(e) => setOption3(e.target.value)}
-              required = {!(Option3 || option3Img)}
+              // required = {!(Option3 || option3Img)}
             />
           </div>
           <br />
@@ -145,7 +145,7 @@ export default function McqQuestions() {
                 id="option3Img"
                 style={{ marginTop: "10px" }}
                 onChange={handleFileRead}
-                required = {!(Option3 || option3Img)}
+                // required = {!(Option3 || option3Img)}
               />
             </div>
           </div>
@@ -164,7 +164,7 @@ export default function McqQuestions() {
                 autoComplete="off"
                 value={Option4}
                 onChange={(e) => setOption4(e.target.value)}
-                required = {!(Option4 || option4Img)}
+                // required = {!(Option4 || option4Img)}
               />
             </div>
             <br />
@@ -181,7 +181,7 @@ export default function McqQuestions() {
                 id="option4Img"
                 style={{ marginTop: "10px" }}
                 onChange={handleFileRead}
-                required = {!(Option4 || option4Img)}
+                // required = {!(Option4 || option4Img)}
               />
             </div>
           </div>

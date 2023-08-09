@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 
 const cont = [{ link: "/addchap" , topic: "Add Chapters / Topics" },
               { link: "/addques", topic: "Add Questions" },
-              { link: "/delchap", topic: "Delete Chapter" },
+              { link: "/editques", topic: "Edit Question" },
               { link: "/delques", topic: "Delete Question" }];
 
 export default function SubDetails() {
