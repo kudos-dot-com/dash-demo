@@ -3,6 +3,30 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 import api from "../API";
 import { useState, useEffect } from "react";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+
+const handleImageUpload = async (file) => {
+    // Image upload logic...
+  };
+
+  const modules = {
+    toolbar: {
+      container: [
+        ['bold', 'italic', 'underline', 'strike'],
+        [{ 'align': [] }],
+        ['link', 'image'],
+      ],
+      handlers: {
+        'image': handleImageUpload,
+      },
+    },
+  };
+
+  const formats = [
+    'bold', 'italic', 'underline', 'strike',
+    'align', 'link', 'image'
+  ];
 
 export default function AddChap() {
   const params = useLocation();
@@ -11,6 +35,8 @@ export default function AddChap() {
 
   const [loading, setLoading] = useState(false);
   const [subOpt, setSubOpt] = useState([]);
+
+  // const [editorHtml, setEditorHtml] = useState('');
 
   const fetchData = () => {   
       setLoading(true);
@@ -131,8 +157,22 @@ export default function AddChap() {
           <button type="submit" class="btn btn-primary">
             Submit
           </button>
+         
         </form>
+        {/* <ReactQuill
+        theme="snow"
+        value={editorHtml}
+        onChange={setEditorHtml}
+        modules={modules}
+        formats={formats}
+      />
+        
+      <div>
+        <h3>HTML Output:</h3>
+        <div dangerouslySetInnerHTML={{ __html: editorHtml }} />
       </div>
+                <button onClick={() => console.log(editorHtml)}>Log HTML Output</button>*/}
+    </div>
     </>
   );
 }

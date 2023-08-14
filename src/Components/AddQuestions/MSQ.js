@@ -1,8 +1,12 @@
 import { useContext } from "react";
 import { MyContext } from "./AddQues";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 export default function MsqQuestions() {
   const {
+    modules,
+    formats,
     Option1,
     setOption1,
     Option2,
@@ -80,8 +84,17 @@ export default function MsqQuestions() {
   return (
     <>
       <div className="row" style={{ marginLeft: "13rem", width: "80%" }}>
-        <div className="col-lg-6">
-          <div class="form-group">
+        <div className="col-lg-12">
+        <label>Option1</label>
+        <ReactQuill
+            style={{ height: "25vh" }}
+            theme="snow"
+            value={Option1}
+            onChange={setOption1}
+            modules={modules}
+            formats={formats}
+          />
+          {/* <div class="form-group">
             <label>Option1 Text</label>
             <textarea
               class="form-control"
@@ -92,11 +105,11 @@ export default function MsqQuestions() {
               value={Option1}
               onChange={(e) => setOption1(e.target.value)}
             />
-          </div>
-          <br />
+          </div> */}
+          <br /><br/>
         </div>
 
-        <div className="col-lg-6">
+        {/* <div className="col-lg-6">
           <div class="form-group">
             <label>Option1 Image</label>
             <div class="custom-file">
@@ -109,12 +122,21 @@ export default function MsqQuestions() {
               />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="row" style={{ marginLeft: "13rem", width: "80%" }}>
-        <div className="col-lg-6">
-          <div class="form-group">
+        <div className="col-lg-12">
+        <label>Option2</label>
+        <ReactQuill
+            style={{ height: "25vh" }}
+            theme="snow"
+            value={Option2}
+            onChange={setOption2}
+            modules={modules}
+            formats={formats}
+          />
+          {/* <div class="form-group">
             <label>Option2 Text</label>
             <textarea
               class="form-control"
@@ -124,11 +146,11 @@ export default function MsqQuestions() {
               value={Option2}
               onChange={(e) => setOption2(e.target.value)}
             />
-          </div>
-          <br />
+          </div> */}
+          <br /><br/>
         </div>
 
-        <div className="col-lg-6">
+        {/* <div className="col-lg-6">
           <div class="form-group">
             <label>Option2 Image</label>
             <div class="custom-file">
@@ -141,12 +163,13 @@ export default function MsqQuestions() {
               />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="row" style={{ marginLeft: "13rem", width: "80%" }}>
-        <div className="col-lg-6">
-          <div class="form-group">
+        <div className="col-lg-12">
+        <label>Option3</label>
+          {/* <div class="form-group">
             <label>Option3 Text</label>
             <textarea
               class="form-control"
@@ -156,11 +179,19 @@ export default function MsqQuestions() {
               value={Option3}
               onChange={(e) => setOption3(e.target.value)}
             />
-          </div>
-          <br />
+          </div> */}
+          <ReactQuill
+            style={{ height: "25vh" }}
+            theme="snow"
+            value={Option3}
+            onChange={setOption3}
+            modules={modules}
+            formats={formats}
+          />
+          <br /><br/>
         </div>
 
-        <div className="col-lg-6">
+        {/* <div className="col-lg-6">
           <div class="form-group">
             <label>Option3 Image</label>
             <div class="custom-file">
@@ -173,12 +204,13 @@ export default function MsqQuestions() {
               />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="row" style={{ marginLeft: "13rem", width: "80%" }}>
-        <div className="col-lg-6">
-          <form autocomplete="off">
+        <div className="col-lg-12">
+        <label>Option4 Text</label>
+          {/* <form autocomplete="off">
             <div class="form-group">
               <label>Option4 Text</label>
               <textarea
@@ -191,10 +223,19 @@ export default function MsqQuestions() {
               />
             </div>
             <br />
-          </form>
+          </form> */}
+          <ReactQuill
+            style={{ height: "25vh" }}
+            theme="snow"
+            value={Option4}
+            onChange={setOption4}
+            modules={modules}
+            formats={formats}
+          />
+          <br/><br/>
         </div>
 
-        <div className="col-lg-6">
+        {/* <div className="col-lg-6">
           <div class="form-group">
             <label>Option4 Image</label>
             <div class="custom-file">
@@ -207,7 +248,7 @@ export default function MsqQuestions() {
               />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="row" style={{ marginLeft: "13rem", width: "80%" }}>
@@ -227,10 +268,10 @@ export default function MsqQuestions() {
             <option value={Option2}>Option2 Text</option>
             <option value={Option3}>Option3 Text</option>
             <option value={Option4}>Option4 Text</option>
-            <option value={option1Img}>Option1 Image</option>
+            {/* <option value={option1Img}>Option1 Image</option>
             <option value={option2Img}>Option2 Image</option>
             <option value={option3Img}>Option3 Image</option>
-            <option value={option4Img}>Option4 Image</option>
+            <option value={option4Img}>Option4 Image</option> */}
           </select>
           <br />
           <div id="msqOpt">

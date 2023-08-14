@@ -6,12 +6,37 @@ import { createContext } from "react";
 import McqQuestions from "./MCQ";
 import MsqQuestions from "./MSQ";
 import TextQuestions from "./TEXT";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import 'katex/dist/katex.min.css';
+import { InlineMath } from 'react-katex';
+
+// const handleImageUpload = async (file) => {
+//   // Image upload logic...
+// };
+
+const modules = 
+    {
+      toolbar: {
+        container: [
+          ['bold', 'italic', 'underline',],
+          [{ 'align': [] }],
+          [{ 'font': [] }],
+          ['link', 'image'],
+          [{ 'size': ['small', 'large', 'huge'] }],
+        ],        
+      },
+    };
+
+const formats= ['bold', 'italic', 'underline', 'strike',
+                'align', 'font', 'size', 'image'];
 
 let chapters = [], topics = [];
 
 const MyContext = createContext("");
 
 export default function AddQues() {
+
   const params = useLocation();
   const sub = params.state.sub;
 
@@ -39,6 +64,8 @@ export default function AddQues() {
   const [option2Img, setOption2Img] = useState("");
   const [option3Img, setOption3Img] = useState("");
   const [option4Img, setOption4Img] = useState("");
+
+  const [editorHtml, setEditorHtml] = useState('');
 
   const fetchData = () => {
     setLoading(true);
@@ -110,56 +137,58 @@ export default function AddQues() {
     }
   };
 
-  const handleFileRead = async (event) => {
-    const file = event.target.files[0];
-    const base64 = await convertBase64(file);
+  // const handleFileRead = async (event) => {
+  //   const file = event.target.files[0];
+  //   const base64 = await convertBase64(file);
 
-    console.log(event.target.id);
+  //   console.log(event.target.id);
 
-    if (event.target.id === "questionImg") {
-      console.log(base64);
-      setQuestionImg(base64);
-    }
+  //   if (event.target.id === "questionImg") {
+  //     console.log(base64);
+  //     setQuestionImg(base64);
+  //   }
 
-    if (event.target.id === "option1Img") {
-      console.log(base64);
-      setOption1Img(base64);
-    }
+  //   if (event.target.id === "option1Img") {
+  //     console.log(base64);
+  //     setOption1Img(base64);
+  //   }
 
-    if (event.target.id === "option2Img") {
-      console.log(base64);
-      setOption2Img(base64);
-    }
+  //   if (event.target.id === "option2Img") {
+  //     console.log(base64);
+  //     setOption2Img(base64);
+  //   }
 
-    if (event.target.id === "option3Img") {
-      console.log(base64);
-      setOption3Img(base64);
-    }
+  //   if (event.target.id === "option3Img") {
+  //     console.log(base64);
+  //     setOption3Img(base64);
+  //   }
 
-    if (event.target.id === "option4Img") {
-      console.log(base64);
-      setOption4Img(base64);
-    }
-  };
+  //   if (event.target.id === "option4Img") {
+  //     console.log(base64);
+  //     setOption4Img(base64);
+  //   }
+  // };
 
-  const convertBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
+  // const convertBase64 = (file) => {
+  //   return new Promise((resolve, reject) => {
+  //     const fileReader = new FileReader();
+  //     fileReader.readAsDataURL(file);
+  //     fileReader.onload = () => {
+  //       resolve(fileReader.result);
+  //     };
+  //     fileReader.onerror = (error) => {
+  //       reject(error);
+  //     };
+  //   });
+  // };
 
   return (
     <>
       <SideNavBar />
       <MyContext.Provider
         value={{
+          modules,
+          formats,
           Option1,
           setOption1,
           Option2,
@@ -233,8 +262,10 @@ export default function AddQues() {
           </div>
 
           <div className="row" style={{ marginLeft: "13rem", width: "80%" }}>
-            <div className="col-lg-6">
-              <div class="form-group">
+            
+            <div className="col-lg-12">
+              <label>Question</label>
+              {/* <div class="form-group">
                 <label>Question Text</label>
                 <textarea
                   class="form-control"
@@ -246,10 +277,24 @@ export default function AddQues() {
                   // required={!(Question || questionImg)}
                 />
                 <br />
-              </div>
-            </div>
+              </div> */}
+              <ReactQuill
+              style={{"height": "25vh"}}
+              theme="snow"
+              value={Question}
+              onChange={setQuestion}
+              modules={modules}
+              formats={formats}
+              />
 
-            <div className="col-lg-6">
+              {/* <div>
+                <h6>HTML Output:</h6>                
+                <div dangerouslySetInnerHTML={{ __html: Question }} />
+              </div>
+              <button onClick={() => console.log(Question)}>Log HTML Output</button> */}
+              <br/><br/><br/>
+            </div>
+            {/* <div className="col-lg-6">
               <div class="form-group">
                 <label>Question Image</label>
                 <div class="custom-file">
@@ -263,13 +308,21 @@ export default function AddQues() {
                   />
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className="row" style={{ marginLeft: "13rem", width: "80%" }}>
             <div className="col-lg-6">
               <label style={{ paddingBottom: "10px" }}>Hint</label>
-              <input
+              <ReactQuill
+              style={{"height": "20vh"}}
+              theme="snow"
+              value={Hint}
+              onChange={setHint}
+              modules={modules}
+              formats={formats}
+              />
+              {/* <input
                 type="text"
                 class="form-control"
                 placeholder="Write the Hint here"
@@ -277,7 +330,7 @@ export default function AddQues() {
                 value={Hint}
                 onChange={(e) => setHint(e.target.value)}
                 required
-              />
+              /> */}
             </div>
 
             <div className="col-lg-6">
@@ -296,7 +349,7 @@ export default function AddQues() {
                 <option>Level 2</option>
                 <option>Level 3</option>
               </select>
-              <br />
+              <br /><br /><br /><br /><br /><br /><br /><br />
             </div>
           </div>
 

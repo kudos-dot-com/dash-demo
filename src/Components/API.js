@@ -2,6 +2,7 @@
 // getChapter : https://edufoundation-backend.vercel.app/api/chapter/chapter/physics
 // getQuestion : https://edufoundation-backend.vercel.app/api/question/gettopic/physics/Electric%20Charges%20and%20Fields/Level%201?page=1&limit=1
 // getAll Questions: https://edufoundation-backend.vercel.app/api/question/getall
+//getQuestion SubjectWise : https://edufoundation-backend.vercel.app/api/question/get/chemistry?page=1&limit=4
 // delQuestion : https://edufoundation-backend.vercel.app/api/question/delete/${question_id}
 // editQuestion: https://edufoundation-backend.vercel.app/api/question/edit, {all details of question with same id}
 

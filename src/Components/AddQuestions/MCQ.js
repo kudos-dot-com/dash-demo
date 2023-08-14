@@ -1,57 +1,78 @@
 import { useContext } from "react";
 import { MyContext } from "./AddQues";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 export default function McqQuestions() {
   const {
-    Option1, setOption1, Option2, setOption2, Option3, setOption3, Option4, setOption4,
-    CorrectOption, setCorrectOption, option1Img, setOption1Img, option2Img, setOption2Img,
-    option3Img, setOption3Img, option4Img, setOption4Img, } = useContext(MyContext);
+    modules,
+    formats,
+    Option1,
+    setOption1,
+    Option2,
+    setOption2,
+    Option3,
+    setOption3,
+    Option4,
+    setOption4,
+    CorrectOption,
+    setCorrectOption,
+    option1Img,
+    setOption1Img,
+    option2Img,
+    setOption2Img,
+    option3Img,
+    setOption3Img,
+    option4Img,
+    setOption4Img,
+  } = useContext(MyContext);
 
-  const handleFileRead = async (event) => {
-    const file = event.target.files[0];
-    const base64 = await convertBase64(file);
+  // const handleFileRead = async (event) => {
+  //   const file = event.target.files[0];
+  //   const base64 = await convertBase64(file);
 
-    console.log(event.target.id);
+  //   console.log(event.target.id);
 
-    if (event.target.id === "option1Img") {
-      console.log(base64);
-      setOption1Img(base64);
-    }
+  //   if (event.target.id === "option1Img") {
+  //     console.log(base64);
+  //     setOption1Img(base64);
+  //   }
 
-    if (event.target.id === "option2Img") {
-      console.log(base64);
-      setOption2Img(base64);
-    }
+  //   if (event.target.id === "option2Img") {
+  //     console.log(base64);
+  //     setOption2Img(base64);
+  //   }
 
-    if (event.target.id === "option3Img") {
-      console.log(base64);
-      setOption3Img(base64);
-    }
+  //   if (event.target.id === "option3Img") {
+  //     console.log(base64);
+  //     setOption3Img(base64);
+  //   }
 
-    if (event.target.id === "option4Img") {
-      console.log(base64);
-      setOption4Img(base64);
-    }
-  };
+  //   if (event.target.id === "option4Img") {
+  //     console.log(base64);
+  //     setOption4Img(base64);
+  //   }
+  // };
 
-  const convertBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
+  // const convertBase64 = (file) => {
+  //   return new Promise((resolve, reject) => {
+  //     const fileReader = new FileReader();
+  //     fileReader.readAsDataURL(file);
+  //     fileReader.onload = () => {
+  //       resolve(fileReader.result);
+  //     };
+  //     fileReader.onerror = (error) => {
+  //       reject(error);
+  //     };
+  //   });
+  // };
 
   return (
     <>
       <div className="row" style={{ marginLeft: "13rem", width: "80%" }}>
-        <div className="col-lg-6">
-          <div class="form-group">
+        <div className="col-lg-12">
+          <label>Option1</label>
+          {/* <div class="form-group">
             <label>Option1 Text</label>
             <textarea
               class="form-control"
@@ -63,11 +84,26 @@ export default function McqQuestions() {
               onChange={(e) => setOption1(e.target.value)}
               // required = {!(Option1 || option1Img)}
             />
-          </div>
+          </div> */}
+          <ReactQuill
+            style={{ height: "25vh" }}
+            theme="snow"
+            value={Option1}
+            onChange={setOption1}
+            modules={modules}
+            formats={formats}
+          />
+
+          {/* <div>
+                <h6>HTML Output:</h6>                
+                <div dangerouslySetInnerHTML={{ __html: Option1 }} />
+              </div> */}
+          <br />
+          <br />
           <br />
         </div>
 
-        <div className="col-lg-6">
+        {/* <div className="col-lg-6">
           <div class="form-group">
             <label>Option1 Image</label>
             <div class="custom-file">
@@ -81,12 +117,13 @@ export default function McqQuestions() {
               />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="row" style={{ marginLeft: "13rem", width: "80%" }}>
-        <div className="col-lg-6">
-          <div class="form-group">
+        <div className="col-lg-12">
+          <label>Option2</label>
+          {/* <div class="form-group">
             <label>Option2 Text</label>
             <textarea
               class="form-control"
@@ -97,11 +134,25 @@ export default function McqQuestions() {
               onChange={(e) => setOption2(e.target.value)}
               // required = {!(Option2 || option2Img)}
             />
-          </div>
+          </div> */}
+          <ReactQuill
+            style={{ height: "25vh" }}
+            theme="snow"
+            value={Option2}
+            onChange={setOption2}
+            modules={modules}
+            formats={formats}
+          />
+
+          {/* <div>
+                <h6>HTML Output:</h6>                
+                <div dangerouslySetInnerHTML={{ __html: Option2 }} />
+              </div> */}
+          <br />
           <br />
         </div>
 
-        <div className="col-lg-6">
+        {/* <div className="col-lg-6">
           <div class="form-group">
             <label>Option2 Image</label>
             <div class="custom-file">
@@ -115,12 +166,13 @@ export default function McqQuestions() {
               />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="row" style={{ marginLeft: "13rem", width: "80%" }}>
-        <div className="col-lg-6">
-          <div class="form-group">
+        <div className="col-lg-12">
+          <label>Option3</label>
+          {/* <div class="form-group">
             <label>Option3 Text</label>
             <textarea
               class="form-control"
@@ -131,11 +183,25 @@ export default function McqQuestions() {
               onChange={(e) => setOption3(e.target.value)}
               // required = {!(Option3 || option3Img)}
             />
-          </div>
+          </div> */}
+          <ReactQuill
+            style={{ height: "25vh" }}
+            theme="snow"
+            value={Option3}
+            onChange={setOption3}
+            modules={modules}
+            formats={formats}
+          />
+
+          {/* <div>
+                <h6>HTML Output:</h6>                
+                <div dangerouslySetInnerHTML={{ __html: Option3 }} />
+              </div> */}
+          <br />
           <br />
         </div>
 
-        <div className="col-lg-6">
+        {/* <div className="col-lg-6">
           <div class="form-group">
             <label>Option3 Image</label>
             <div class="custom-file">
@@ -149,12 +215,13 @@ export default function McqQuestions() {
               />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="row" style={{ marginLeft: "13rem", width: "80%" }}>
-        <div className="col-lg-6">
-          <form autocomplete="off">
+        <div className="col-lg-12">
+          <label>Option4</label>
+          {/* <form autocomplete="off">
             <div class="form-group">
               <label>Option4 Text</label>
               <textarea
@@ -168,10 +235,25 @@ export default function McqQuestions() {
               />
             </div>
             <br />
-          </form>
+          </form> */}
+          <ReactQuill
+            style={{ height: "25vh" }}
+            theme="snow"
+            value={Option4}
+            onChange={setOption4}
+            modules={modules}
+            formats={formats}
+          />
+
+          {/* <div>
+                <h6>HTML Output:</h6>                
+                <div dangerouslySetInnerHTML={{ __html: Option4 }} />
+              </div> */}
+          <br />
+          <br />
         </div>
 
-        <div className="col-lg-6">
+        {/* <div className="col-lg-6">
           <div class="form-group">
             <label>Option4 Image</label>
             <div class="custom-file">
@@ -185,7 +267,7 @@ export default function McqQuestions() {
               />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="row" style={{ marginLeft: "13rem", width: "80%" }}>
@@ -205,10 +287,10 @@ export default function McqQuestions() {
             <option value={Option2}>Option2 Text</option>
             <option value={Option3}>Option3 Text</option>
             <option value={Option4}>Option4 Text</option>
-            <option value={option1Img}>Option1 Image</option>
+            {/* <option value={option1Img}>Option1 Image</option>
             <option value={option2Img}>Option2 Image</option>
             <option value={option3Img}>Option3 Image</option>
-            <option value={option4Img}>Option4 Image</option>
+            <option value={option4Img}>Option4 Image</option> */}
           </select>
           <br />
         </div>
