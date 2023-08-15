@@ -5,14 +5,12 @@ import SideNavBar from "../SideNavBar/SideNavBar";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import "./delQues.css";
 import React from "react";
-import { renderToString } from "react-dom/server";
 import { InlineMath, BlockMath } from "react-katex";
 import "katex/dist/katex.min.css";
-import parse from "html-react-parser";
+import ReactDOMServer from "react-dom/server";
 
 let regexForHTML = /<([A-Za-z][A-Za-z0-9]*)\b[^>]*>(.*?)<\/\1>/;
-
-const regex = /\[.*?\]/;
+const regex = /\\\[([^\]]*)\\\]/g;
 
 export default function DelQues() {
   let [allQues, setAllQues] = useState([]);
@@ -62,21 +60,6 @@ export default function DelQues() {
     }
   }
 
-  let replacedString;
-
-  const replaceLatexWithEquations = (text) => {
-    const replacedText = text.replace(/\\\[([^\]]*)\\\]/g, (match, latex) => {
-      // console.log("Matches: ", match.slice(2,-2))
-      // console.log(<BlockMath math={match.slice(2,-2)} />)
-      console.log("Matches: ", match.slice(2, -2))
-      return `<BlockMath math="${match.slice(2, -2)}" />`;      
-      // return (match);
-    });
-
-    return replacedText;
-  };
-
-
   function nextQues() {
     if (idx <= allQues.length - 1) {
       setIdx(++idx);
@@ -97,26 +80,6 @@ export default function DelQues() {
                     `data:image/jpeg;base64,${allQues[idx - 1].questionImage}`
                   )
               : document.getElementById("QImg").setAttribute("src", ""));
-      } else {
-        // console.log(replacedString);
-        // const matches = allQues[idx - 1].question.match(regex);
-        // console.log("Matches Array", matches)
-        // replacedString = allQues[idx - 1].question.replace(
-        //   regex,
-        //   (match) => {
-        //     console.log(match.slice(1, -2));
-        //     return <BlockMath math={match.slice(1, -2)} />;
-        //   }
-        // );
-        // console.log(replacedString);
-        // if (matches) {
-        //   for (const match of matches) {
-        //     console.log(match);
-        //     const latexEquation = match;
-        //   }
-        // } else {
-        //   console.log("No matches found.");
-        // }
       }
     }
   }
@@ -138,6 +101,21 @@ export default function DelQues() {
 
   function editQues() {}
 
+  const replaceLatexWithEquations = (html) => {
+    let index = 0;
+    const replacedHtml = html.replace(regex, (match, latex) => {
+      const equationComponent = <InlineMath key={index} math={latex} />;
+      index++;
+      return ReactDOMServer.renderToStaticMarkup(equationComponent);
+    });
+
+    return replacedHtml;
+  };
+
+  const renderedContent = allQues[idx - 1]
+    ? replaceLatexWithEquations(allQues[idx - 1].question)
+    : null;
+
   return (
     <>
       <SideNavBar />
@@ -152,35 +130,24 @@ export default function DelQues() {
                 Question No - {idx}
               </h4>
 
-              {/* {parse(renderToString(replacedString))} */}
-              {/* <div dangerouslySetInnerHTML={{__html :replacedString}}> */}
-              {/* <p>Inline equation: <InlineMath math="\sum_{1}^{n}i^{3}=\left(\frac{n(n+1)}{2}\right)^{2}" /></p> */}
-              {/* <p>Inline equation: <InlineMath math={replacedString} /></p>
-                <p>Block equation: <BlockMath math="\sum_{1}^{n}i^{3} = \left ( \frac{n(n+1)}{2} \right )^{2}" /></p> */}
-
-              {/* <div>{replaceLatexWithEquations(allQues[idx - 1].question)}</div> */}
               <div>
                 {allQues[idx - 1].question !== "" ? (
                   regexForHTML.test(allQues[idx - 1].question) ? (
-                    <>
-                      {/* <div dangerouslySetInnerHTML={{
-                        __html: replaceLatexWithEquations(allQues[idx - 1].question),
-                        }}/> */}
-                      
-                      <BlockMath math={replaceLatexWithEquations(
-                        allQues[idx - 1].question)}
-                      />                      
-                      {/* {replaceLatexWithEquations(
-                        allQues[idx - 1].question)} */}
-                      
+                    <h5 className="pt-4 px-3" id="Qtxt">
+                      {renderedContent && (
+                        <div
+                          dangerouslySetInnerHTML={{ __html: renderedContent }}
+                        />
+                      )}
+
                       <br />
-                      <div
+                      {/* <div
                         id="abcd"
                         dangerouslySetInnerHTML={{
                           __html: allQues[idx - 1].question,
                         }}
-                      />
-                    </>
+                      /> */}
+                    </h5>
                   ) : (
                     <h5 className="pt-4 px-3" id="Qtxt">
                       {allQues[idx - 1].question}
