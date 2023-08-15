@@ -9,6 +9,8 @@ import { renderToString } from 'react-dom/server';
 import { InlineMath, BlockMath } from 'react-katex';
 import 'katex/dist/katex.min.css';
 import parse from 'html-react-parser';
+import katex from 'katex';
+// import 'katex/dist/katex.min.css';
 
 let regexForHTML = /<([A-Za-z][A-Za-z0-9]*)\b[^>]*>(.*?)<\/\1>/;
 
@@ -18,7 +20,7 @@ export default function DelQues() {
   let [allQues, setAllQues] = useState([]);
   let [idx, setIdx] = useState(1);
   const [loading, setLoading] = useState(false);
-
+  const  [newstring,setnewstring] = useState("");
   let questions = [];
 
   const fetchData = () => {
@@ -64,7 +66,7 @@ export default function DelQues() {
 
   let inlineMathHtml, blockMathHtml, replacedString;
 
-  function nextQues() {
+ async function nextQues() {
     if (idx <= allQues.length - 1) {
       setIdx(++idx);
       console.log(regexForHTML.test(allQues[idx - 1].question));
@@ -80,29 +82,20 @@ export default function DelQues() {
                   )
               : document.getElementById("QImg").setAttribute("src", ""));
       } else {
-        const matches = allQues[idx - 1].question.match(regex);
-        
-        replacedString = allQues[idx - 1].question.replace(regex, (match, equation) => {
+      
+        replacedString =await allQues[idx - 1].question.replace(regex, (match, equation) => {
           console.log(match.slice(1, -2))
-          return <BlockMath math={match.slice(1, -2)}/>;
+          const mathHtml = katex.renderToString(match.slice(1, -2), {
+            throwOnError: false, 
+          });
+          return mathHtml;
+          // return <BlockMath math={match.slice(1, -2)}/>;
         });
-
+        setnewstring(replacedString)
+        console.log(replacedString)
         console.log(typeof(replacedString))
 
-        if (matches) {
-          for (const match of matches) {
-            console.log(match);
-            const latexEquation = match;
-
-            // inlineMathHtml = renderToString(<InlineMath math={"\sum_{1}^{n}i^{3} = \left ( \frac{n(n+1)}{2} \right )^{2}"} />);
-            // blockMathHtml = renderToString(<BlockMath math={"\sum_{1}^{n}i^{3} = \left ( \frac{n(n+1)}{2} \right )^{2}"} />);
-
-            // console.log(inlineMathHtml)
-            // console.log(blockMathHtml)
-          }
-        } else {
-          console.log("No matches found.");
-        }
+       
       }
     }
   }
@@ -122,6 +115,8 @@ export default function DelQues() {
     fetchData();
   }
 
+ 
+
   function editQues() {}
 
   return (
@@ -139,20 +134,16 @@ export default function DelQues() {
               </h4>
 
               <div>
-                {parse(renderToString(replacedString))}
-              {/* <div dangerouslySetInnerHTML={{__html :replacedString}}> */}
-                {/* <p>Inline equation: <InlineMath math="\sum_{1}^{n}i^{3} = \left ( \frac{n(n+1)}{2} \right )^{2}" /></p> */}
-                {/* <p>Inline equation: <InlineMath math={replacedString} /></p>
-                <p>Block equation: <BlockMath math="\sum_{1}^{n}i^{3} = \left ( \frac{n(n+1)}{2} \right )^{2}" /></p> */}
-              </div>
+                
+                   </div>
 
               <div>
                 {allQues[idx - 1].question !== "" ? (
-                  regexForHTML.test(allQues[idx - 1].question) ? (
+                  regexForHTML.test(allQues[idx - 1].question)? (
                     <div
                       id="abcd"
                       dangerouslySetInnerHTML={{
-                        __html: allQues[idx - 1].question
+                        __html:newstring
                       }}
                     />
                   ) : (
