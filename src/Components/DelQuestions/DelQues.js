@@ -13,8 +13,7 @@ import katex from 'katex';
 // import 'katex/dist/katex.min.css';
 
 let regexForHTML = /<([A-Za-z][A-Za-z0-9]*)\b[^>]*>(.*?)<\/\1>/;
-
-const regex = /\[.*?\]/;
+const regex = /\\\[([^\]]*)\\\]/g;
 
 export default function DelQues() {
   let [allQues, setAllQues] = useState([]);
@@ -74,9 +73,14 @@ export default function DelQues() {
 
       if (!regexForHTML.test(allQues[idx - 1].question)) {
         allQues[idx - 1].question !== ""
-          ? (document.getElementById("Qtxt").textContent = allQues[idx - 1].question)
-          : (document.getElementById("Qtxt").textContent = ""(allQues[idx - 1].questionImage !== "")
-              ? document.getElementById("QImg").setAttribute(
+          ? (document.getElementById("Qtxt").textContent =
+              allQues[idx - 1].question)
+          : (document.getElementById("Qtxt").textContent = ""(
+              allQues[idx - 1].questionImage !== ""
+            )
+              ? document
+                  .getElementById("QImg")
+                  .setAttribute(
                     "src",
                     `data:image/jpeg;base64,${allQues[idx - 1].questionImage}`
                   )
@@ -118,6 +122,21 @@ export default function DelQues() {
  
 
   function editQues() {}
+
+  const replaceLatexWithEquations = (html) => {
+    let index = 0;
+    const replacedHtml = html.replace(regex, (match, latex) => {
+      const equationComponent = <InlineMath key={index} math={latex} />;
+      index++;
+      return ReactDOMServer.renderToStaticMarkup(equationComponent);
+    });
+
+    return replacedHtml;
+  };
+
+  const renderedContent = allQues[idx - 1]
+    ? replaceLatexWithEquations(allQues[idx - 1].question)
+    : null;
 
   return (
     <>
